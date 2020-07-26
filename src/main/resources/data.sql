@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS book CASCADE;
 CREATE TABLE book
 (
-    bookId      serial PRIMARY KEY NOT NULL,
+    book_id      serial PRIMARY KEY NOT NULL,
     title           character varying,
     year            INTEGER,
     price           DECIMAL
@@ -13,24 +13,19 @@ CREATE TABLE book
 DROP TABLE IF EXISTS author CASCADE;
 CREATE TABLE author
 (
-    authorId          serial PRIMARY KEY NOT NULL,
+    author_id          serial PRIMARY KEY NOT NULL,
     name          character varying  NOT NULL
 
 );
 
-DROP TABLE IF EXISTS bookAuthor CASCADE;
-CREATE TABLE bookAuthor
+DROP TABLE IF EXISTS book_author CASCADE;
+CREATE TABLE book_author
 (
+  book_id INTEGER,
+  author_id INTEGER,
 
-  bookAuthorId   serial PRIMARY KEY NOT NULL,
-  bookId INTEGER,
-  authorId INTEGER,
-
-  CONSTRAINT fk_bookId foreign key (bookId) references book(bookId),
-  CONSTRAINT fk_authorId foreign key (authorId) references author(authorId)
-
-
-
+  CONSTRAINT fk_bookId foreign key (book_id) references book(book_id),
+  CONSTRAINT fk_authorId foreign key (author_id) references author(author_id)
 );
 
 insert into book
@@ -45,10 +40,7 @@ values (1, 'James K. Jackson'),
        (3, 'Jack Y. Johnson');
 
 
-insert into bookAuthor
-values (1, 1, 3),
-       (2,  1, 1),
-       (3, 3, 3);
-
-
-
+insert into book_author
+values (1, 3),
+       (1, 1),
+       (3, 3);

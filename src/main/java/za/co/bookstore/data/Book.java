@@ -3,7 +3,6 @@ package za.co.bookstore.data;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,17 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
-import java.util.Set;
+
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import za.co.bookstore.model.Author;
-import za.co.bookstore.model.BookAuthor;
+
 
 @Entity
 @Table(name="book")
@@ -29,10 +25,10 @@ import za.co.bookstore.model.BookAuthor;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class BookDao {
+public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="bookId")
+    @Column(name="book_id")
     @JsonIgnore
     private Long bookId;
 
@@ -45,8 +41,10 @@ public class BookDao {
     @Column(name="price")
     private double price;
 
-    @ManyToMany(mappedBy = "book")
-    private Set<BookAuthorDao> bookAuthorSet;
+
+    @ManyToMany
+    @JoinTable(name = "book_author", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
+    private List<Author> author;
 
 
 }

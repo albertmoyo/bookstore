@@ -1,17 +1,17 @@
 package za.co.bookstore.service;
 
-import java.util.List;
-import za.co.bookstore.model.Author;
+import za.co.bookstore.data.Author;
 
+import java.util.List;
 
 public interface AuthorService {
-    List<Author> getAllAuthors(int bookId);
+    List<Author> getAllAuthors();
 
-    Author findById(int bookId);
+    Author findById(long authorId);
 
     void addAuthor(Author author);
 
-    void deleteAuthor(int id);
+    void deleteAuthor(long id);
 
-    void updateAuthor(int id);
+    void updateAuthor(long id);
 }
